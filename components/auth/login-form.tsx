@@ -1,4 +1,6 @@
 
+"use client"
+
 import { Button } from "@/components/ui/button"
 import {
   Field,
@@ -9,11 +11,53 @@ import {
 import { Input } from "@/components/ui/input"
 import { cn } from "@/lib/utils"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../ui/card"
+import { useForm } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { z } from "zod"
+import { useStore } from "@/stores/useStore"
+import { useRouter } from "next/navigation"
+import { useState } from "react"
+import { Eye, EyeOff } from "lucide-react"
+
+const loginSchema = z.object({
+  username: z.string().min(1, "Логин обязателен"),
+  password: z.string().min(1, "Пароль обязателен"),
+})
+
+type LoginFormData = z.infer<typeof loginSchema>
 
 export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
+  const { login } = useStore()
+  const router = useRouter()
+  const [error, setError] = useState<string>("")
+  const [showPassword, setShowPassword] = useState(false)
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<LoginFormData>({
+    resolver: zodResolver(loginSchema),
+  })
+
+  const onSubmit = async (data: LoginFormData) => {
+    setError("")
+    try {
+      const success = await login(data.username, data.password)
+      if (success) {
+        router.push("/main")
+      } else {
+        setError("Неверный логин или пароль")
+      }
+    } catch (err) {
+      console.error("Login error:", err)
+      setError("Произошла ошибка при входе")
+    }
+  }
+
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
@@ -24,27 +68,57 @@ export function LoginForm({
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form>
+          <form onSubmit={handleSubmit(onSubmit)}>
             <FieldGroup>
               <Field>
-                <FieldLabel htmlFor="email">Логин</FieldLabel>
+                <FieldLabel htmlFor="username">Логин</FieldLabel>
                 <Input
-                  id="login"
-                  type="login"
-                  placeholder="example"
+                  id="username"
+                  type="text"
+                  placeholder="NameSurname"
+                  {...register("username")}
                   required
                 />
+                {errors.username && (
+                  <p className="text-sm text-red-600">{errors.username.message}</p>
+                )}
               </Field>
               <Field>
-                <FieldLabel htmlFor="email">Пароль</FieldLabel>
-                <Input
-                  id="password"
-                  type="password"
-                  required
-                />
+                <FieldLabel htmlFor="password">Пароль</FieldLabel>
+                <div className="relative">
+                  <Input
+                    id="password"
+                    type={showPassword ? "text" : "password"}
+                    {...register("password")}
+                    required
+                    className="pr-10"
+                  />
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="sm"
+                    className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
+                    onClick={() => setShowPassword(!showPassword)}
+                    aria-label={showPassword ? "Скрыть пароль" : "Показать пароль"}
+                  >
+                    {showPassword ? (
+                      <EyeOff className="h-4 w-4" />
+                    ) : (
+                      <Eye className="h-4 w-4" />
+                    )}
+                  </Button>
+                </div>
+                {errors.password && (
+                  <p className="text-sm text-red-600">{errors.password.message}</p>
+                )}
               </Field>
+              {error && (
+                <p className="text-sm text-red-600 text-center">{error}</p>
+              )}
               <Field>
-                <Button type="submit">Войти</Button>
+                <Button type="submit" disabled={isSubmitting}>
+                  {isSubmitting ? "Вход..." : "Войти"}
+                </Button>
               </Field>
               <FieldDescription className="px-6 text-center">
                 <a href="/auth/forget-pass">Забыли пароль?</a>

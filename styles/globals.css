@@ -16,10 +16,10 @@ body {
   --popover-foreground: rgb(22, 26, 29);
   --primary: rgb(72, 148, 199);
   --primary-foreground: rgb(255, 255, 255);
-  --secondary: rgb(22, 26, 29);
-  --secondary-foreground: rgb(255, 255, 255);
+  --secondary: rgb(245, 245, 245);
+  --secondary-foreground: rgb(71, 71, 71);
   --muted: rgb(229, 229, 230);
-  --muted-foreground: rgb(22, 26, 29);
+  --muted-foreground: rgb(79, 79, 79);
   --accent: rgb(231, 236, 242);
   --accent-foreground: rgb(72, 148, 199);
   --destructive: rgb(202, 75, 83);
@@ -76,8 +76,8 @@ body {
   --popover-foreground: rgb(232, 233, 233);
   --primary: rgb(70, 147, 198);
   --primary-foreground: rgb(255, 255, 255);
-  --secondary: rgb(241, 243, 243);
-  --secondary-foreground: rgb(22, 26, 29);
+  --secondary: rgb(22, 26, 29);
+  --secondary-foreground: rgb(241, 243, 243);
   --muted: rgb(24, 24, 24);
   --muted-foreground: rgb(116, 118, 120);
   --accent: rgb(15, 27, 36);

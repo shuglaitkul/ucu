@@ -1,6 +1,6 @@
 export const testUser = {
     username: "admin",
-    password: "123456"
+    password: "admin2121"
 };
 
 export function validateUser(username: string, password: string) {
