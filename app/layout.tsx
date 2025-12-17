@@ -24,6 +24,9 @@ const gloock = Gloock({
 export const metadata: Metadata = {
   title: "UCU",
   description: "Универсальная система учета",
+  icons: {
+    icon: "/img/logo.svg",
+  },
 };
 
 export default function RootLayout({

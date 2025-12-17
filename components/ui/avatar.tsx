@@ -1,4 +1,3 @@
-import { User } from "lucide-react";
 import { Button } from "./button";
 import {
   DropdownMenu,
@@ -9,6 +8,8 @@ import {
 } from "./dropdown-menu";
 import { useStore } from "@/stores/useStore";
 import { useRouter } from "next/navigation";
+import { AnimateIcon } from "../animate-ui/icons/icon";
+import { User } from "../animate-ui/icons/user";
 
 export function AvatarIcon() {
   const { logout, user } = useStore();
@@ -23,12 +24,14 @@ export function AvatarIcon() {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="logo" size="logo">
-          <User size={20} />
+          <AnimateIcon animateOnHover>
+            <User />
+          </AnimateIcon>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56" align="start">
         <DropdownMenuLabel className="font-bold">
-            {user?.username}
+          {user?.username}
         </DropdownMenuLabel>
         <DropdownMenuItem onClick={handleLogout}>Выйти</DropdownMenuItem>
       </DropdownMenuContent>
