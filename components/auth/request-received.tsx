@@ -28,7 +28,7 @@ export function RequestReceived({
                 </CardHeader>
                 <CardContent>
                     <DotLottieReact
-                        src="/sent_blue.lottie"
+                        src="/animations/sent.lottie"
                         autoplay
                     />
                 </CardContent>

@@ -1,3 +1,4 @@
+"use client";
 import { useStore } from "@/stores/useStore";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
@@ -38,7 +39,9 @@ export function ThemeIcon() {
         setDark(next === "dark");
       }}
     >
-      <AnimateIcon animateOnHover>{isDark ? <Sun /> : <Moon />}</AnimateIcon>
+      <AnimateIcon animateOnHover>
+        {isDark ? <Sun key="sun" /> : <Moon key="moon" />}
+      </AnimateIcon>
     </Button>
   );
 }
