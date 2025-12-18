@@ -5,7 +5,7 @@ export function Logo() {
     const src = dark ? '/img/logo_white.svg' : '/img/logo.svg';
 
     return (
-        <div className="flex flex-row items-center">
+        <div className="flex flex-row items-center cursor-pointer" onClick={() => window.location.reload()}>
             <img src={src} alt="UCU Logo" className="h-10 w-10" />
             <h1 className="logo text-foreground text-lg font-semibold">UCU</h1>
         </div>

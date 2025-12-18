@@ -1,38 +1,45 @@
-"use client"
-import { cn } from "@/lib/utils"
-import { DotLottieReact } from "@lottiefiles/dotlottie-react"
-import { useRouter } from 'next/navigation'
-import { useEffect } from 'react'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../ui/card"
+"use client";
+import { cn } from "@/lib/utils";
+import { DotLottieReact } from "@lottiefiles/dotlottie-react";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "../ui/card";
+import { useStore } from "@/stores/useStore";
 
 export function RequestReceived({
-    className,
-    ...props
+  className,
+  ...props
 }: React.ComponentProps<"div">) {
-    const router = useRouter()
+  const dark = useStore((s) => s.dark);
+  const src = dark ? "/animations/sent_dark.lottie" :  "/animations/sent.lottie";
 
-    useEffect(() => {
-        const t = setTimeout(() => {
-            router.replace('/auth')
-        }, 3500)
-        return () => clearTimeout(t)
-    }, [router])
-    return (
-        <div className={cn("flex flex-col gap-6", className)} {...props}>
-            <Card>
-                <CardHeader>
-                    <CardTitle>Приняли запрос</CardTitle>
-                    <CardDescription>
-                        Ваши данные отправлены в техподдержку. Ожидайте обратную связь.
-                    </CardDescription>
-                </CardHeader>
-                <CardContent>
-                    <DotLottieReact
-                        src="/animations/sent.lottie"
-                        autoplay
-                    />
-                </CardContent>
-            </Card >
-        </div>
-    )
+  const router = useRouter();
+
+  useEffect(() => {
+    const t = setTimeout(() => {
+      router.replace("/auth");
+    }, 3500);
+    return () => clearTimeout(t);
+  }, [router]);
+  return (
+    <div className={cn("flex flex-col gap-6", className)} {...props}>
+      <Card>
+        <CardHeader>
+          <CardTitle>Приняли запрос</CardTitle>
+          <CardDescription>
+            Ваши данные отправлены в техподдержку. Ожидайте обратную связь.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <DotLottieReact src={src} autoplay />
+        </CardContent>
+      </Card>
+    </div>
+  );
 }

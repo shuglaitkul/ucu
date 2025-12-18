@@ -19,8 +19,8 @@ body {
   --secondary: rgb(245, 245, 245);
   --secondary-foreground: rgb(71, 71, 71);
   --muted: rgb(229, 229, 230);
-  --muted-foreground: rgb(79, 79, 79);
-  --accent: rgb(231, 236, 242);
+  --muted-foreground: rgb(100, 100, 100);
+  --accent: rgb(245, 248, 250);
   --accent-foreground: rgb(72, 148, 199);
   --destructive: rgb(202, 75, 83);
   --destructive-foreground: rgb(255, 255, 255);
@@ -190,4 +190,19 @@ body {
 .logo {
   font-family: var(--font-gloock);
   letter-spacing: 0.5px;
+}
+
+.scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: var(--muted) transparent;
+}
+
+.status-col {
+  height: calc(80vh - 1rem);
+}
+
+@media (max-width: 1050px) {
+  .status-col {
+    height: 80vh;
+  }
 }

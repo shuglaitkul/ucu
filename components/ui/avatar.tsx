@@ -25,7 +25,7 @@ export function AvatarIcon() {
       <DropdownMenuTrigger asChild>
         <Button variant="logo" size="logo">
           <AnimateIcon animateOnHover>
-            <User />
+            <User size={30}/>
           </AnimateIcon>
         </Button>
       </DropdownMenuTrigger>
