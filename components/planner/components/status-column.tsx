@@ -1,16 +1,11 @@
-import { useDroppable } from '@dnd-kit/core';
+import { useDroppable } from "@dnd-kit/core";
 import {
   SortableContext,
   verticalListSortingStrategy,
-} from '@dnd-kit/sortable';
-import { ContainerCard } from './container-card';
-
-interface Container {
-  id: string;
-  name: string;
-  country: string;
-  weight: number;
-}
+} from "@dnd-kit/sortable";
+import { ContainerCard } from "./container-card";
+import { Container } from "@/lib/containers";
+import { filterActiveContainers } from "@/lib/container-utils";
 
 interface StatusColumnProps {
   status: string;
@@ -18,26 +13,28 @@ interface StatusColumnProps {
 }
 
 export function StatusColumn({ status, containers }: StatusColumnProps) {
+  const actualContainers = filterActiveContainers(containers);
+
   const { setNodeRef } = useDroppable({
     id: status,
   });
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'прибыл':
-        return 'border-l-blue-500';
-      case 'в обработке':
-        return 'border-l-amber-500';
-      case 'готов к отправке':
-        return 'border-l-emerald-500';
-      case 'отправлен':
-        return 'border-l-violet-500';
-      case 'отменен':
-        return 'border-l-rose-500';
-      case 'поломка оборудования':
-        return 'border-l-orange-500';
+      case "прибыл":
+        return "border-l-blue-500";
+      case "в обработке":
+        return "border-l-amber-500";
+      case "готов к отправке":
+        return "border-l-emerald-500";
+      case "отправлен":
+        return "border-l-violet-500";
+      case "отменен":
+        return "border-l-rose-500";
+      case "поломка оборудования":
+        return "border-l-orange-500";
       default:
-        return 'border-l-gray-300';
+        return "border-l-gray-300";
     }
   };
 
@@ -55,15 +52,12 @@ export function StatusColumn({ status, containers }: StatusColumnProps) {
           {containers.length}
         </p>
       </div>
-      <div
-        ref={setNodeRef}
-        className="flex-1 overflow-y-auto scrollbar"
-      >
+      <div ref={setNodeRef} className="flex-1 overflow-y-auto scrollbar">
         <SortableContext
-          items={containers.map((c) => c.id)}
+          items={actualContainers.map((c) => c.id)}
           strategy={verticalListSortingStrategy}
         >
-          {containers.map((container) => (
+          {actualContainers.map((container) => (
             <ContainerCard key={container.id} container={container} />
           ))}
         </SortableContext>

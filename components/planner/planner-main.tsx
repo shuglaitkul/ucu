@@ -24,96 +24,8 @@ import { SlidersHorizontal } from "../animate-ui/icons/sliders-horizontal";
 import { AnimateIcon } from "../animate-ui/icons/icon";
 import { RotateCcw } from "../animate-ui/icons/rotate-ccw";
 import { Clock } from "../animate-ui/icons/clock";
+import { Container, initialContainers, STATUSES } from "@/lib/containers";
 
-interface Container {
-  id: string;
-  name: string;
-  country: string;
-  weight: number;
-  status: string;
-}
-
-const STATUSES = [
-  "прибыл",
-  "в обработке",
-  "готов к отправке",
-  "отправлен",
-  "отменен",
-  "поломка оборудования",
-];
-
-const initialContainers: Container[] = [
-  {
-    id: "1",
-    name: "CONT-001",
-    country: "Китай",
-    weight: 15.5,
-    status: "прибыл",
-  },
-  {
-    id: "2",
-    name: "CONT-002",
-    country: "Казахстан",
-    weight: 22.3,
-    status: "прибыл",
-  },
-  {
-    id: "3",
-    name: "CONT-003",
-    country: "Казахстан",
-    weight: 18.7,
-    status: "в обработке",
-  },
-  {
-    id: "4",
-    name: "CONT-004",
-    country: "Кыргызстан",
-    weight: 20.1,
-    status: "в обработке",
-  },
-  {
-    id: "5",
-    name: "CONT-005",
-    country: "Казахстан",
-    weight: 16.8,
-    status: "готов к отправке",
-  },
-  {
-    id: "6",
-    name: "CONT-006",
-    country: "Китай",
-    weight: 19.4,
-    status: "готов к отправке",
-  },
-  {
-    id: "7",
-    name: "CONT-007",
-    country: "Узбекистан",
-    weight: 21.2,
-    status: "отправлен",
-  },
-  {
-    id: "8",
-    name: "CONT-008",
-    country: "Казахстан",
-    weight: 17.9,
-    status: "отправлен",
-  },
-  {
-    id: "9",
-    name: "CONT-009",
-    country: "Казахстан",
-    weight: 14.6,
-    status: "отменен",
-  },
-  {
-    id: "10",
-    name: "CONT-010",
-    country: "Китай",
-    weight: 23.1,
-    status: "поломка оборудования",
-  },
-];
 
 export default function PlannerMainPage() {
   const [containers, setContainers] = useState<Container[]>(initialContainers);
@@ -218,14 +130,14 @@ export default function PlannerMainPage() {
           </div>
           <div className="flex flex-row gap-2 items-center">
             <AnimateIcon animateOnHover>
-              <Button>
-                История <Clock />
+              <Button onClick={() => window.location.href = '/main/history'}>
+                История <Clock /> 
               </Button>
             </AnimateIcon>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <AnimateIcon animateOnHover>
-                  <Button variant="outline" className="text-xs">
+                  <Button variant="outline">
                     Фильтр <SlidersHorizontal />
                   </Button>
                 </AnimateIcon>
