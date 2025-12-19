@@ -8,7 +8,7 @@ body {
 }
 
 :root {
-  --background: rgb(255, 255, 255);
+  --background: rgb(241, 245, 249);
   --foreground: rgb(22, 26, 29);
   --card: rgb(255, 255, 255);
   --card-foreground: rgb(22, 26, 29);
@@ -205,4 +205,14 @@ body {
   .status-col {
     height: 80vh;
   }
+}
+
+.planner-details h3 {
+  font-weight: 550;
+  font-size: small;
+}
+
+.planner-details p {
+  font-weight: 400;
+  font-size: small;
 }

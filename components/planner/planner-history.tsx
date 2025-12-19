@@ -18,9 +18,13 @@ import { filterFinishedOldContainers } from "@/lib/container-utils";
 
 interface ContainersProps {
   containers: Container[];
+  onContainerClick: (container: Container) => void;
 }
 
-export default function PlannerHistoryPage({ containers }: ContainersProps) {
+export default function PlannerHistoryPage({
+  containers,
+  onContainerClick,
+}: ContainersProps) {
   const finishedContainers = filterFinishedOldContainers(containers);
 
   const containersByMonth: Record<string, Container[]> = {};
@@ -77,7 +81,11 @@ export default function PlannerHistoryPage({ containers }: ContainersProps) {
 
               <div className="grid grid-cols-6 gap-2">
                 {containers.map((container) => (
-                  <ContainerCard key={container.id} container={container} />
+                  <ContainerCard
+                    key={container.id}
+                    container={container}
+                    onClick={onContainerClick}
+                  />
                 ))}
               </div>
             </div>

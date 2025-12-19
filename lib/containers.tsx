@@ -1,20 +1,23 @@
 export const STATUSES = [
-  "прибыл",
-  "в обработке",
-  "готов к отправке",
-  "отправлен",
-  "отменен",
-  "поломка оборудования",
+  { id: "arrived", label: "прибыл" },
+  { id: "processing", label: "в обработке" },
+  { id: "ready_to_ship", label: "готов к отправке" },
+  { id: "shipped", label: "отправлен" },
+  { id: "canceled", label: "отменен" },
+  { id: "equipment_broken", label: "поломка оборудования" },
 ];
+
+export const VISIBLE_STATUSES = STATUSES.slice(0, 3);
 
 export interface Container {
   id: string;
   name: string;
-  country: string;
+  countryFrom?: string;
+  countryTo: string;
   weight: number;
   status: string;
-  arrivalDate?: string;  
-  sentDate?: string;         
+  arrivalDate?: string;
+  sentDate?: string;
   direction?: string;
   cargoType?: string;
   zone?: string;
@@ -28,7 +31,7 @@ export const initialContainers: Container[] = [
   {
     id: "1",
     name: "CONT-001",
-    country: "Китай",
+    countryTo: "Китай",
     weight: 15.5,
     status: "прибыл",
     arrivalDate: "2025-12-01",
@@ -40,11 +43,12 @@ export const initialContainers: Container[] = [
     loadCapacity: 80,
     urgency: "средняя",
     equipmentAvailable: true,
+    countryFrom: "Казахстан",
   },
   {
     id: "2",
     name: "CONT-002",
-    country: "Казахстан",
+    countryTo: "Казахстан",
     weight: 22.3,
     status: "прибыл",
     arrivalDate: "2025-12-02",
@@ -56,11 +60,12 @@ export const initialContainers: Container[] = [
     loadCapacity: 60,
     urgency: "низкая",
     equipmentAvailable: false,
+    countryFrom: "Казахстан",
   },
   {
     id: "3",
     name: "CONT-003",
-    country: "Казахстан",
+    countryTo: "Казахстан",
     weight: 18.7,
     status: "в обработке",
     arrivalDate: "2025-12-03",
@@ -72,11 +77,12 @@ export const initialContainers: Container[] = [
     loadCapacity: 75,
     urgency: "высокая",
     equipmentAvailable: true,
+    countryFrom: "Казахстан",
   },
   {
     id: "4",
     name: "CONT-004",
-    country: "Кыргызстан",
+    countryTo: "Кыргызстан",
     weight: 20.1,
     status: "в обработке",
     arrivalDate: "2025-12-04",
@@ -88,11 +94,12 @@ export const initialContainers: Container[] = [
     loadCapacity: 50,
     urgency: "средняя",
     equipmentAvailable: true,
+    countryFrom: "Казахстан",
   },
   {
     id: "5",
     name: "CONT-005",
-    country: "Казахстан",
+    countryTo: "Казахстан",
     weight: 16.8,
     status: "готов к отправке",
     arrivalDate: "2025-12-05",
@@ -104,11 +111,12 @@ export const initialContainers: Container[] = [
     loadCapacity: 90,
     urgency: "высокая",
     equipmentAvailable: false,
+    countryFrom: "Казахстан",
   },
   {
     id: "6",
     name: "CONT-006",
-    country: "Китай",
+    countryTo: "Китай",
     weight: 19.4,
     status: "готов к отправке",
     arrivalDate: "2025-12-06",
@@ -120,15 +128,16 @@ export const initialContainers: Container[] = [
     loadCapacity: 70,
     urgency: "средняя",
     equipmentAvailable: true,
+    countryFrom: "Казахстан",
   },
   {
     id: "7",
     name: "CONT-007",
-    country: "Узбекистан",
+    countryTo: "Узбекистан",
     weight: 21.2,
     status: "отправлен",
     arrivalDate: "2025-12-07",
-    sentDate: "2025-12-11",
+    sentDate: "2025-12-15",
     direction: "Юг",
     cargoType: "Продукты",
     zone: "G1",
@@ -136,11 +145,12 @@ export const initialContainers: Container[] = [
     loadCapacity: 85,
     urgency: "низкая",
     equipmentAvailable: false,
+    countryFrom: "Казахстан",
   },
   {
     id: "8",
     name: "CONT-008",
-    country: "Казахстан",
+    countryTo: "Казахстан",
     weight: 17.9,
     status: "отправлен",
     arrivalDate: "2025-12-08",
@@ -152,11 +162,12 @@ export const initialContainers: Container[] = [
     loadCapacity: 60,
     urgency: "высокая",
     equipmentAvailable: true,
+    countryFrom: "Казахстан",
   },
   {
     id: "9",
     name: "CONT-009",
-    country: "Казахстан",
+    countryTo: "Казахстан",
     weight: 14.6,
     status: "отменен",
     arrivalDate: "2025-12-09",
@@ -168,11 +179,12 @@ export const initialContainers: Container[] = [
     loadCapacity: 55,
     urgency: "средняя",
     equipmentAvailable: true,
+    countryFrom: "Казахстан",
   },
   {
     id: "10",
     name: "CONT-010",
-    country: "Китай",
+    countryTo: "Китай",
     weight: 23.1,
     status: "поломка оборудования",
     arrivalDate: "2025-12-10",
@@ -184,11 +196,12 @@ export const initialContainers: Container[] = [
     loadCapacity: 95,
     urgency: "высокая",
     equipmentAvailable: false,
+    countryFrom: "Казахстан",
   },
   {
     id: "11",
     name: "CONT-011",
-    country: "Узбекистан",
+    countryTo: "Узбекистан",
     weight: 23.1,
     status: "отправлен",
     arrivalDate: "2025-12-07",
@@ -200,11 +213,12 @@ export const initialContainers: Container[] = [
     loadCapacity: 95,
     urgency: "высокая",
     equipmentAvailable: false,
+    countryFrom: "Казахстан",
   },
   {
     id: "12",
     name: "CONT-012",
-    country: "Китай",
+    countryTo: "Китай",
     weight: 20,
     status: "отправлен",
     arrivalDate: "2025-11-25",
@@ -216,11 +230,12 @@ export const initialContainers: Container[] = [
     loadCapacity: 95,
     urgency: "высокая",
     equipmentAvailable: false,
+    countryFrom: "Казахстан",
   },
-   {
+  {
     id: "13",
     name: "CONT-013",
-    country: "Китай",
+    countryTo: "Китай",
     weight: 25,
     status: "отправлен",
     arrivalDate: "2025-11-20",
@@ -232,5 +247,6 @@ export const initialContainers: Container[] = [
     loadCapacity: 95,
     urgency: "высокая",
     equipmentAvailable: false,
+    countryFrom: "Казахстан",
   },
 ];
