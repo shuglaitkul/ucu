@@ -20,7 +20,6 @@ import {
 import { Dialog, DialogContent } from "../ui/dialog";
 import { ContainerDetails } from "./components/container-details";
 import { DialogTitle } from "@radix-ui/react-dialog";
-import { Layers } from "../animate-ui/icons/layers";
 
 export default function PlannerMainPage() {
   const [containers, setContainers] = useState<Container[]>(initialContainers);
@@ -53,7 +52,7 @@ export default function PlannerMainPage() {
           </div>
           <div className="flex flex-row gap-2 items-center">
             <AnimateIcon animateOnHover>
-              <Button onClick={() => (window.location.href = "/main/history")}>
+              <Button onClick={() => (window.location.href = "/planner/history")}>
                 История <Clock />
               </Button>
             </AnimateIcon>

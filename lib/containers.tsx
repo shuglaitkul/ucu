@@ -8,6 +8,7 @@ export const STATUSES = [
 ];
 
 export const VISIBLE_STATUSES = STATUSES.slice(0, 3);
+export const HISTORY_STATUSES = STATUSES.slice(3);
 
 export interface Container {
   id: string;
@@ -18,6 +19,7 @@ export interface Container {
   status: string;
   arrivalDate?: string;
   sentDate?: string;
+  sentTime?: string;
   direction?: string;
   cargoType?: string;
   zone?: string;
@@ -25,17 +27,19 @@ export interface Container {
   loadCapacity?: number;
   urgency?: string;
   equipmentAvailable?: boolean;
+  forwarder?: string;
 }
 
 export const initialContainers: Container[] = [
   {
     id: "1",
     name: "CONT-001",
-    countryTo: "Китай",
+    countryTo: "Казахстан",
     weight: 15.5,
     status: "прибыл",
     arrivalDate: "2025-12-01",
     sentDate: "2025-12-05",
+    sentTime: "09:30",
     direction: "Восток",
     cargoType: "Электроника",
     zone: "A1",
@@ -43,7 +47,8 @@ export const initialContainers: Container[] = [
     loadCapacity: 80,
     urgency: "средняя",
     equipmentAvailable: true,
-    countryFrom: "Казахстан",
+    countryFrom: "Китай",
+    forwarder: "KTZ Express",
   },
   {
     id: "2",
@@ -53,6 +58,7 @@ export const initialContainers: Container[] = [
     status: "прибыл",
     arrivalDate: "2025-12-02",
     sentDate: "2025-12-06",
+    sentTime: "10:15",
     direction: "Север",
     cargoType: "Продукты",
     zone: "B3",
@@ -60,7 +66,8 @@ export const initialContainers: Container[] = [
     loadCapacity: 60,
     urgency: "низкая",
     equipmentAvailable: false,
-    countryFrom: "Казахстан",
+    countryFrom: "Китай",
+    forwarder: "KTZ Express",
   },
   {
     id: "3",
@@ -70,6 +77,7 @@ export const initialContainers: Container[] = [
     status: "в обработке",
     arrivalDate: "2025-12-03",
     sentDate: "2025-12-07",
+    sentTime: "14:45",
     direction: "Юг",
     cargoType: "Одежда",
     zone: "C2",
@@ -77,7 +85,8 @@ export const initialContainers: Container[] = [
     loadCapacity: 75,
     urgency: "высокая",
     equipmentAvailable: true,
-    countryFrom: "Казахстан",
+    countryFrom: "Китай",
+    forwarder: "KTZ Express",
   },
   {
     id: "4",
@@ -87,6 +96,7 @@ export const initialContainers: Container[] = [
     status: "в обработке",
     arrivalDate: "2025-12-04",
     sentDate: "2025-12-08",
+    sentTime: "08:00",
     direction: "Запад",
     cargoType: "Металл",
     zone: "D1",
@@ -94,16 +104,18 @@ export const initialContainers: Container[] = [
     loadCapacity: 50,
     urgency: "средняя",
     equipmentAvailable: true,
-    countryFrom: "Казахстан",
+    countryFrom: "Китай",
+    forwarder: "КеденТрансСервис",
   },
   {
     id: "5",
     name: "CONT-005",
-    countryTo: "Казахстан",
+    countryTo: "Узбекистан",
     weight: 16.8,
     status: "готов к отправке",
     arrivalDate: "2025-12-05",
     sentDate: "2025-12-09",
+    sentTime: "13:20",
     direction: "Восток",
     cargoType: "Машины",
     zone: "E3",
@@ -111,16 +123,18 @@ export const initialContainers: Container[] = [
     loadCapacity: 90,
     urgency: "высокая",
     equipmentAvailable: false,
-    countryFrom: "Казахстан",
+    countryFrom: "Китай",
+    forwarder: "КеденТрансСервис",
   },
   {
     id: "6",
     name: "CONT-006",
-    countryTo: "Китай",
+    countryTo: "Узбекистан",
     weight: 19.4,
     status: "готов к отправке",
     arrivalDate: "2025-12-06",
     sentDate: "2025-12-10",
+    sentTime: "16:00",
     direction: "Север",
     cargoType: "Химия",
     zone: "F2",
@@ -128,16 +142,18 @@ export const initialContainers: Container[] = [
     loadCapacity: 70,
     urgency: "средняя",
     equipmentAvailable: true,
-    countryFrom: "Казахстан",
+    countryFrom: "Китай",
+    forwarder: "КеденТрансСервис",
   },
   {
     id: "7",
     name: "CONT-007",
     countryTo: "Узбекистан",
     weight: 21.2,
-    status: "отправлен",
+    status: "готов к отправке",
     arrivalDate: "2025-12-07",
     sentDate: "2025-12-15",
+    sentTime: "11:10",
     direction: "Юг",
     cargoType: "Продукты",
     zone: "G1",
@@ -145,7 +161,8 @@ export const initialContainers: Container[] = [
     loadCapacity: 85,
     urgency: "низкая",
     equipmentAvailable: false,
-    countryFrom: "Казахстан",
+    countryFrom: "Китай",
+    forwarder: "КеденТрансСервис",
   },
   {
     id: "8",
@@ -155,6 +172,7 @@ export const initialContainers: Container[] = [
     status: "отправлен",
     arrivalDate: "2025-12-08",
     sentDate: "2025-12-12",
+    sentTime: "09:50",
     direction: "Запад",
     cargoType: "Электроника",
     zone: "H2",
@@ -162,16 +180,18 @@ export const initialContainers: Container[] = [
     loadCapacity: 60,
     urgency: "высокая",
     equipmentAvailable: true,
-    countryFrom: "Казахстан",
+    countryFrom: "Китай",
+    forwarder: "Сборная",
   },
   {
     id: "9",
     name: "CONT-009",
     countryTo: "Казахстан",
     weight: 14.6,
-    status: "отменен",
+    status: "отправлен",
     arrivalDate: "2025-12-09",
     sentDate: "2025-12-13",
+    sentTime: "18:30",
     direction: "Восток",
     cargoType: "Одежда",
     zone: "I3",
@@ -179,16 +199,18 @@ export const initialContainers: Container[] = [
     loadCapacity: 55,
     urgency: "средняя",
     equipmentAvailable: true,
-    countryFrom: "Казахстан",
+    countryFrom: "Китай",
+    forwarder: "Сборная",
   },
   {
     id: "10",
     name: "CONT-010",
-    countryTo: "Китай",
+    countryTo: "Россия",
     weight: 23.1,
     status: "поломка оборудования",
     arrivalDate: "2025-12-10",
     sentDate: "2025-12-14",
+    sentTime: "07:40",
     direction: "Север",
     cargoType: "Металл",
     zone: "J1",
@@ -196,7 +218,8 @@ export const initialContainers: Container[] = [
     loadCapacity: 95,
     urgency: "высокая",
     equipmentAvailable: false,
-    countryFrom: "Казахстан",
+    countryFrom: "Китай",
+    forwarder: "Сборная",
   },
   {
     id: "11",
@@ -206,6 +229,7 @@ export const initialContainers: Container[] = [
     status: "отправлен",
     arrivalDate: "2025-12-07",
     sentDate: "2025-12-10",
+    sentTime: "12:00",
     direction: "Север",
     cargoType: "Металл",
     zone: "J1",
@@ -213,16 +237,18 @@ export const initialContainers: Container[] = [
     loadCapacity: 95,
     urgency: "высокая",
     equipmentAvailable: false,
-    countryFrom: "Казахстан",
+    countryFrom: "Китай",
+    forwarder: "Сборная",
   },
   {
     id: "12",
     name: "CONT-012",
-    countryTo: "Китай",
+    countryTo: "Кыргызстан",
     weight: 20,
     status: "отправлен",
     arrivalDate: "2025-11-25",
     sentDate: "2025-11-29",
+    sentTime: "15:25",
     direction: "Север",
     cargoType: "Металл",
     zone: "J1",
@@ -230,16 +256,18 @@ export const initialContainers: Container[] = [
     loadCapacity: 95,
     urgency: "высокая",
     equipmentAvailable: false,
-    countryFrom: "Казахстан",
+    countryFrom: "Китай",
+    forwarder: "КеденТрансСервис",
   },
   {
     id: "13",
     name: "CONT-013",
-    countryTo: "Китай",
+    countryTo: "Казахстан",
     weight: 25,
     status: "отправлен",
     arrivalDate: "2025-11-20",
     sentDate: "2025-11-20",
+    sentTime: "06:55",
     direction: "Север",
     cargoType: "Металл",
     zone: "J1",
@@ -247,6 +275,7 @@ export const initialContainers: Container[] = [
     loadCapacity: 95,
     urgency: "высокая",
     equipmentAvailable: false,
-    countryFrom: "Казахстан",
+    countryFrom: "Китай",
+    forwarder: "КеденТрансСервис",
   },
 ];

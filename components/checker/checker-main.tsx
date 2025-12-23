@@ -40,35 +40,30 @@ const data: Container[] = [
   {
     id: "m5gr84i9",
     containerNumber: "ABCU1234567",
-    photo: "",
     arrivalTime: "2025-12-16T09:24:00Z",
     status: "проверен",
   },
   {
     id: "3u1reuv4",
     containerNumber: "MSKU7654321",
-    photo: "",
     arrivalTime: "2025-12-16T11:05:00Z",
     status: "проверен",
   },
   {
     id: "derv1ws0",
     containerNumber: "ZIMU9988776",
-    photo: "",
     arrivalTime: "2025-12-17T02:30:00Z",
     status: "проверен",
   },
   {
     id: "5kma53ae",
     containerNumber: "HLCU5554443",
-    photo: "",
     arrivalTime: "2025-12-17T07:50:00Z",
     status: "не проверен",
   },
   {
     id: "bhqecj4p",
     containerNumber: "ONEU0001112",
-    photo: "",
     arrivalTime: "2025-12-15T22:10:00Z",
     status: "дефект",
   },
@@ -77,7 +72,6 @@ const data: Container[] = [
 export type Container = {
   id: string
   containerNumber: string
-  photo: string
   arrivalTime: string
   status: "не проверен" | "проверен" | "дефект"
 }
@@ -220,7 +214,7 @@ export function CheckerMainPage() {
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" className="ml-auto">
-              Columns <ChevronDown />
+              Колоны <ChevronDown />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
@@ -287,7 +281,7 @@ export function CheckerMainPage() {
                   colSpan={columns.length}
                   className="h-24 text-center"
                 >
-                  No results.
+                  Нет результата.
                 </TableCell>
               </TableRow>
             )}
@@ -306,7 +300,7 @@ export function CheckerMainPage() {
             onClick={() => table.previousPage()}
             disabled={!table.getCanPreviousPage()}
           >
-            Previous
+            Предыдущее
           </Button>
           <Button
             variant="outline"
@@ -314,7 +308,7 @@ export function CheckerMainPage() {
             onClick={() => table.nextPage()}
             disabled={!table.getCanNextPage()}
           >
-            Next
+            Далее
           </Button>
         </div>
       </div>

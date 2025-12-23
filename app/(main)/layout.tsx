@@ -1,17 +1,20 @@
 "use client";
-
 import { useStore } from "@/stores/useStore";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { Navbar } from "@/components/navbar";
+import AppSidebar from "@/components/app-sidebar";
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
-  const { isAuthenticated, isHydrated } = useStore();
+  const { isAuthenticated, isHydrated, user } = useStore();
   const router = useRouter();
 
   useEffect(() => {
+    console.log("[main page] mount", { isAuthenticated, user });
     if (isHydrated && !isAuthenticated) {
+      console.log("[main page] not authenticated -> /auth");
       router.push("/auth");
+      return;
     }
   }, [isAuthenticated, isHydrated, router]);
 
@@ -27,12 +30,23 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
     );
   }
 
+  const role = user?.role;
+
   return (
-    <div className="relative h-screen overflow-hidden">
-      <Navbar />
-      <main className="absolute top-0 left-0 w-full h-full pt-16">
-        {children}
-      </main>
+    <div>
+      {role === "planner" || role === "checker" ? (
+        <div className="relative h-screen overflow-hidden">
+          <Navbar />
+          <main className="absolute top-0 left-0 w-full h-full pt-16">
+            {children}
+          </main>
+        </div>
+      ) : (
+        <div className="flex">
+          <AppSidebar />
+          <main className="flex-1 ml-(--sidebar-width)">{children}</main>
+        </div>
+      )}
     </div>
   );
 };

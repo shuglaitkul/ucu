@@ -19,6 +19,7 @@ import { useRouter } from "next/navigation"
 import { useState } from "react"
 import { Eye, EyeOff } from "lucide-react"
 
+
 const loginSchema = z.object({
   username: z.string().min(1, "Логин обязателен"),
   password: z.string().min(1, "Пароль обязателен"),
@@ -45,15 +46,32 @@ export function LoginForm({
 
   const onSubmit = async (data: LoginFormData) => {
     setError("")
+    console.log('[login-form] onSubmit start', data.username)
     try {
-      const success = await login(data.username, data.password)
-      if (success) {
-        router.push("/main")
+      const user = await login(data.username, data.password)
+      console.log('[login-form] login returned', user)
+      if (user) {
+        const role = user.role
+        console.log('[login-form] redirecting for role=', role)
+        switch (role) {
+          case "planner":
+            router.push("/planner")
+            break
+          case "checker":
+            router.push("/checker")
+            break
+          case "crane":
+            router.push("/crane")
+            break
+          default:
+            router.push("/planner")
+        }
       } else {
+        console.warn('[login-form] invalid credentials')
         setError("Неверный логин или пароль")
       }
     } catch (err) {
-      console.error("Login error:", err)
+      console.error("[login-form] Login error:", err)
       setError("Произошла ошибка при входе")
     }
   }

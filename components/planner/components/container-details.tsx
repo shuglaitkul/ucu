@@ -21,7 +21,7 @@ export function ContainerDetails({ container }: { container: Container }) {
         <CardDescription>Информация о выбранном контейнере</CardDescription>
       </div>
       <CardContent>
-        <div className="planner-details grid grid-cols-2 gap-4">
+        <div className="planner-details grid grid-cols-2 gap-4 mb-2">
           <div>
             <h3>Направление:</h3>
             <p>{direction}</p>
@@ -62,11 +62,19 @@ export function ContainerDetails({ container }: { container: Container }) {
             <h3>Дата отправления:</h3>
             <p>{container.sentDate}</p>
           </div>
+          <div>
+            <h3>Статус:</h3>
+            <p>{container.status}</p>
+          </div>
+          <div>
+            <h3>Экспедитор:</h3>
+            <p>{container.forwarder}</p>
+          </div>
         </div>
-        <div className="flex flex-row my-4 justify-center">
+        {/* <div className="flex flex-row my-4 justify-center">
           <h3 className="font-semibold text-sm">Статус:</h3>
           <p className="text-sm ml-1">{container.status}</p>
-        </div>
+        </div> */}
       </CardContent>
       <CardFooter>
         <DialogClose asChild>

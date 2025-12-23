@@ -4,17 +4,17 @@ import {
   DropdownMenuTrigger,
   DropdownMenuContent,
   DropdownMenuCheckboxItem,
-} from "@radix-ui/react-dropdown-menu";
+} from "../ui/dropdown-menu";
 import { AnimateIcon } from "../animate-ui/icons/icon";
 import { RotateCcw } from "../animate-ui/icons/rotate-ccw";
 import { Button } from "../ui/button";
 import { List } from "../animate-ui/icons/list";
 import { SlidersHorizontal } from "../animate-ui/icons/sliders-horizontal";
 import { ContainerCard } from "./components/container-card";
-import { Container } from "@/lib/containers";
+import { Container, HISTORY_STATUSES } from "@/lib/containers";
 import { format } from "date-fns";
 import { ru } from "date-fns/locale";
-import { filterFinishedOldContainers } from "@/lib/container-utils";
+import { useState } from "react";
 
 interface ContainersProps {
   containers: Container[];
@@ -25,7 +25,26 @@ export default function PlannerHistoryPage({
   containers,
   onContainerClick,
 }: ContainersProps) {
-  const finishedContainers = filterFinishedOldContainers(containers);
+  function isFinished(container: Container) {
+    return HISTORY_STATUSES.map((s) => s.label).includes(container.status);
+  }
+  const [selectedStatuses, setSelectedStatuses] = useState<string[]>(
+    HISTORY_STATUSES.map((s) => s.id)
+  );
+  const toggleStatus = (statusId: string) => {
+    setSelectedStatuses((prev) =>
+      prev.includes(statusId)
+        ? prev.filter((s) => s !== statusId)
+        : [...prev, statusId]
+    );
+  };
+  const selectedLabels = HISTORY_STATUSES.filter((s) =>
+    selectedStatuses.includes(s.id)
+  ).map((s) => s.label);
+
+  const finishedContainers = containers.filter(isFinished).filter((c) =>
+    selectedLabels.includes(c.status)
+  );
 
   const containersByMonth: Record<string, Container[]> = {};
   finishedContainers.forEach((c) => {
@@ -34,6 +53,8 @@ export default function PlannerHistoryPage({
     containersByMonth[month].push(c);
   });
 
+  console.log("HISTORY_STATUSES: ", HISTORY_STATUSES, selectedStatuses);
+
   return (
     <div className="min-h-screen bg-background p-6">
       <div className="max-w-[1800px] mx-auto">
@@ -41,7 +62,7 @@ export default function PlannerHistoryPage({
           <h1 className="text-foreground mb-1 text-2xl">История</h1>
           <div className="flex flex-row gap-2 items-center">
             <AnimateIcon animateOnHover>
-              <Button onClick={() => (window.location.href = "/main")}>
+              <Button onClick={() => (window.location.href = "/planner")}>
                 Расписание <List />
               </Button>
             </AnimateIcon>
@@ -55,17 +76,32 @@ export default function PlannerHistoryPage({
               </DropdownMenuTrigger>
               <DropdownMenuContent className="w-54">
                 {/* календарь */}
-                {/* <div className="border-t mt-1 pt-1">
+                {HISTORY_STATUSES.map((status) => {
+                  return (
+                    <DropdownMenuCheckboxItem
+                      key={status.id}
+                      className="capitalize"
+                      checked={selectedStatuses.includes(status.id)}
+                      onCheckedChange={() => toggleStatus(status.id)}
+                    >
+                      {status.label}
+                    </DropdownMenuCheckboxItem>
+                  );
+                })}
+                <div className="border-t mt-1 pt-1">
                   <AnimateIcon animateOnHover>
                     <Button
                       variant="ghost"
                       className="w-full justify-start text-sm font-normal"
+                      onClick={() =>
+                        setSelectedStatuses(HISTORY_STATUSES.map((s) => s.id))
+                      }
                     >
                       <RotateCcw />
                       Сбросить фильтр
                     </Button>
                   </AnimateIcon>
-                </div> */}
+                </div>
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
