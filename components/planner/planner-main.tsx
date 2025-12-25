@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { StatusColumn } from "./components/status-column";
 import {
   DropdownMenu,
@@ -23,6 +23,17 @@ import { DialogTitle } from "@radix-ui/react-dialog";
 
 export default function PlannerMainPage() {
   const [containers, setContainers] = useState<Container[]>(initialContainers);
+  const [plannedMap, setPlannedMap] = useState<Record<string, string>>({});
+  const MAX_PLANNED_PER_FORWARDER = 5;
+  const containersByStatus = useMemo(() => {
+    const m = new Map<string, Container[]>();
+    for (const c of containers) {
+      const arr = m.get(c.status) || [];
+      arr.push(c);
+      m.set(c.status, arr);
+    }
+    return m;
+  }, [containers]);
   const [selectedStatuses, setSelectedStatuses] = useState<string[]>(
     VISIBLE_STATUSES.map((s) => s.id)
   );
@@ -101,16 +112,52 @@ export default function PlannerMainPage() {
           </div>
         ) : (
           <div className="flex gap-3 overflow-x-auto pb-4 scrollbar items-end">
-            {VISIBLE_STATUSES.filter((status) =>
-              selectedStatuses.includes(status.id)
-            ).map((status) => (
-              <StatusColumn
-                key={status.id}
-                status={status.label}
-                containers={containers.filter((c) => c.status === status.label)}
-                onContainerClick={setSelectedContainer}
-              />
-            ))}
+              {VISIBLE_STATUSES.filter((status) =>
+                selectedStatuses.includes(status.id)
+              ).map((status) => (
+                <StatusColumn
+                  key={status.id}
+                  status={status.label}
+                  containers={containersByStatus.get(status.label) ?? []}
+                  onContainerClick={setSelectedContainer}
+                  plannedMap={plannedMap}
+                  processingContainers={
+                    status.label === "готов к отправке"
+                      ? containersByStatus.get("в обработке") ?? []
+                      : undefined
+                  }
+                  onApplyPlanned={(ids, forwarder, time) => {
+                    const existingCount = containers.filter(
+                      (c) => c.forwarder === forwarder && plannedMap[c.id]
+                    ).length;
+                    const availableSlots = Math.max(0, MAX_PLANNED_PER_FORWARDER - existingCount);
+                    const toPlan = ids.filter((id) => !plannedMap[id]).slice(0, availableSlots);
+                    if (toPlan.length === 0) return;
+                    setPlannedMap((prev) => {
+                      const copy = { ...prev };
+                      toPlan.forEach((id) => (copy[id] = time));
+                      return copy;
+                    });
+                    setContainers((prev) =>
+                      prev.map((c) => (toPlan.includes(c.id) ? { ...c, status: "готов к отправке" } : c))
+                    );
+                  }}
+                  onClearPlanned={(forwarder) => {
+                    setPlannedMap((prev) => {
+                      const copy = { ...prev };
+                      containers.forEach((c) => {
+                        if (c.forwarder === forwarder) delete copy[c.id];
+                      });
+                      return copy;
+                    });
+                  }}
+                  onStatusChange={(ids, newStatus) => {
+                    setContainers((prev) =>
+                      prev.map((c) => (ids.includes(c.id) ? { ...c, status: newStatus } : c))
+                    );
+                  }}
+                />
+              ))}
           </div>
         )}
         <Dialog

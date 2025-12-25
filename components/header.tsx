@@ -2,15 +2,12 @@
 import { useEffect, useState } from "react";
 import { Logo } from "./ui/logo";
 import { ThemeIcon } from "./ui/theme";
-import { Button } from "./ui/button";
 import { useStore } from "@/stores/useStore";
-import { useRouter } from "next/navigation";
 import { AvatarIcon } from "./ui/avatar";
 
-export function Navbar() {
+export function Header() {
   const [time, setTime] = useState(getCurrentTime());
-  const { logout, user } = useStore();
-  const router = useRouter();
+  const { user } = useStore();
 
   function getCurrentTime() {
     const now = new Date();

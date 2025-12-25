@@ -64,7 +64,7 @@ export function LoginForm({
             router.push("/crane")
             break
           default:
-            router.push("/planner")
+            router.push("/auth")
         }
       } else {
         console.warn('[login-form] invalid credentials')

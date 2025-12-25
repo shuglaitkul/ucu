@@ -1,58 +1,44 @@
+"use client";
 import { initialContainers } from "@/lib/containers";
-import { Card } from "./ui/card";
 import { Logo } from "./ui/logo";
-import { Sidebar, SidebarGroup, SidebarHeader, SidebarMenu, SidebarMenuItem, SidebarMenuButton, SidebarGroupLabel, SidebarGroupContent, SidebarContent } from "./ui/sidebar";
+import {
+  Sidebar,
+  SidebarHeader,
+  SidebarMenu,
+  SidebarMenuItem,
+  SidebarMenuButton,
+  SidebarGroupLabel,
+} from "./ui/sidebar";
+import { useStore } from "@/stores/useStore";
+import { CraneContainers } from "./crane/components/crane-containers";
 
-export default function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+export default function AppSidebar({
+  ...props
+}: React.ComponentProps<typeof Sidebar>) {
+  const { user } = useStore();
+  const role = user?.role;
   return (
     <Sidebar collapsible="offcanvas" {...props}>
-      <SidebarGroup>
-        <SidebarHeader>
-          <SidebarMenu>
-            <SidebarMenuItem>
-              <SidebarMenuButton asChild className="p-0">
-                <a href="#">
-                  <Logo />
-                </a>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-          </SidebarMenu>
-        </SidebarHeader>
-        <SidebarGroupLabel className="text-lg text-foreground font-semibold h-4 mt-2">
-          Активные задачи
-        </SidebarGroupLabel>
-        <SidebarGroupLabel>Найдено контейнеров: 20</SidebarGroupLabel>
-        <SidebarGroupContent>
-          <SidebarMenu>
-            {initialContainers.map((container) => (
-              <SidebarMenuItem key={container.id}>
-                <Card className="px-4 py-3">
-                  <div className="min-w-0">
-                    <h3 className="mb-1.5 text-foreground text-sm">
-                      {container.name}
-                    </h3>
-                    <div className="space-y-0.5">
-                      <p className="text-xs text-secondary-foreground">
-                        Маршрут : {container.countryFrom} -{">"}{" "}
-                        {container.countryTo}
-                      </p>
-                      <div className="flex flex-row justify-between">
-                        <p className="text-xs text-secondary-foreground">
-                          Вес: {container.weight} т
-                        </p>
-                        <p className="text-xs text-secondary-foreground">
-                          Зона: {container.zone}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </Card>
-              </SidebarMenuItem>
-            ))}
-          </SidebarMenu>
-        </SidebarGroupContent>
-      </SidebarGroup>
-      <SidebarContent></SidebarContent>
+      <SidebarHeader>
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <SidebarMenuButton asChild className="p-0">
+              <a href="#">
+                <Logo />
+              </a>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+        </SidebarMenu>
+      </SidebarHeader>
+      {role === "crane" ? (
+        <>
+          <SidebarGroupLabel className="text-md text-foreground h-4 mt-2">
+            Активные задачи
+          </SidebarGroupLabel>
+          <SidebarGroupLabel>Найдено контейнеров: {initialContainers.length}</SidebarGroupLabel>
+        </>
+      ) : null}
+      {role === "crane" ? <CraneContainers /> : null}
     </Sidebar>
   );
 }

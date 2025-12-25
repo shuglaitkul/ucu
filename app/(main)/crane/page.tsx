@@ -1,7 +1,11 @@
-import CraneMainPage from "@/components/crane/crane-main";
+import { CraneContent } from "@/components/crane/crane-content";
 
-export function Crane(){
+export default function Crane() {
   return (
-    <CraneMainPage />
+    <div className="flex flex-1 flex-col">
+      <div className="@container/main flex flex-1 flex-col gap-2">
+        {/* <CraneContent /> */}
+      </div>
+    </div>
   );
 }

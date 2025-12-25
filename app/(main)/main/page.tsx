@@ -3,10 +3,9 @@
 import { Button } from "@/components/ui/button";
 import { useStore } from "@/stores/useStore";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
 
 export default function Main() {
-  const { logout, isAuthenticated, user } = useStore();
+  const { logout } = useStore();
   const router = useRouter();
 
   const handleLogout = () => {

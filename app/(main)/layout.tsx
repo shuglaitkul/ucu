@@ -2,8 +2,10 @@
 import { useStore } from "@/stores/useStore";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
-import { Navbar } from "@/components/navbar";
+import { Header } from "@/components/header";
 import AppSidebar from "@/components/app-sidebar";
+import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
+import { SiteHeader } from "@/components/site-header";
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const { isAuthenticated, isHydrated, user } = useStore();
@@ -16,7 +18,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
       router.push("/auth");
       return;
     }
-  }, [isAuthenticated, isHydrated, router]);
+  }, [isAuthenticated, isHydrated, router, user]);
 
   if (!isHydrated) {
     return <div></div>;
@@ -36,15 +38,27 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
     <div>
       {role === "planner" || role === "checker" ? (
         <div className="relative h-screen overflow-hidden">
-          <Navbar />
+          <Header />
           <main className="absolute top-0 left-0 w-full h-full pt-16">
             {children}
           </main>
         </div>
       ) : (
         <div className="flex">
-          <AppSidebar />
-          <main className="flex-1 ml-(--sidebar-width)">{children}</main>
+          <SidebarProvider
+            style={
+              {
+                "--sidebar-width": "calc(var(--spacing) * 72)",
+                "--header-height": "calc(var(--spacing) * 12)",
+              } as React.CSSProperties
+            }
+          >
+            <AppSidebar variant="inset" />
+            <SidebarInset>
+              <SiteHeader />
+              {children}
+            </SidebarInset>
+          </SidebarProvider>
         </div>
       )}
     </div>

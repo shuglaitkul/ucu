@@ -1,6 +1,6 @@
 import { CheckerMainPage } from "@/components/checker/checker-main";
 
-export function Checker(){
+export default function Checker(){
   return (
     <CheckerMainPage />
   );
