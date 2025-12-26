@@ -57,9 +57,6 @@ export default function PlannerMainPage() {
             <h1 className="text-foreground mb-1 text-2xl">
               Расписание составов
             </h1>
-            <p className="text-secondary- text-sm">
-              Перетаскивайте контейнеры между статусами
-            </p>
           </div>
           <div className="flex flex-row gap-2 items-center">
             <AnimateIcon animateOnHover>

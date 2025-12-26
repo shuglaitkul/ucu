@@ -1,3 +1,4 @@
+import { int } from "zod";
 import { ZoneType } from "./zone";
 
 export const STATUSES = [
@@ -11,6 +12,16 @@ export const STATUSES = [
 
 export const VISIBLE_STATUSES = STATUSES.slice(0, 3);
 export const HISTORY_STATUSES = STATUSES.slice(3);
+
+export interface GreenListContainer {
+  container_number: "9667900";
+  destination: "алматы-1";
+  size: "40";
+  country_code: "KZ";
+  arrival_date: "20.12";
+  customs_control_release_date: "21.12";
+  delivery_date: "28.12";
+}
 
 export interface Container {
   id: string;

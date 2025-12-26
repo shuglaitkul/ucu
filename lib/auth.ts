@@ -2,7 +2,7 @@ export const testUser = {
     username: "admin",
     password: "admin2121",
     // checker, planner, crane
-    role: "crane"
+    role: "planner"
 };
 
 export function validateUser(username: string, password: string) {
