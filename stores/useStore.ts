@@ -14,7 +14,7 @@ interface State {
 
 export const useStore = create<State>()(
     persist(
-        (set, get) => ({
+        (set) => ({
             dark: false,
             setTheme: () => set(state => ({ dark: !state.dark })),
             setDark: (value: boolean) => set({ dark: value }),
@@ -62,13 +62,13 @@ export const useStore = create<State>()(
                 try {
                     if (typeof window !== 'undefined') window.console.log('[store] onRehydrateStorage start', !!state);
                     else console.log('[store] onRehydrateStorage start', !!state);
-                } catch (e) {}
+                } catch {}
                 if (state) {
                     state.isHydrated = true;
                     try {
                         if (typeof window !== 'undefined') window.console.log('[store] onRehydrateStorage: hydrated');
                         else console.log('[store] onRehydrateStorage: hydrated');
-                    } catch (e) {}
+                    } catch {}
                 }
             },
         }

@@ -2,7 +2,7 @@ export const testUser = {
     username: "admin",
     password: "admin2121",
     // checker, planner, crane
-    role: "planner"
+    role: "crane"
 };
 
 export function validateUser(username: string, password: string) {
@@ -13,8 +13,7 @@ export function validateUser(username: string, password: string) {
         } else {
             console.log(`[auth] validateUser: username=${username} result=${ok}`);
         }
-    } catch (e) {
-        // ignore logging errors
+    } catch {
     }
     return ok;
 }
@@ -26,18 +25,18 @@ export function getUser(username: string) {
         } else {
             console.log(`[auth] getUser: username=${username}`);
         }
-    } catch (e) {}
+    } catch {}
     if (username === testUser.username) {
         const u = { username: testUser.username, role: testUser.role };
         try {
             if (typeof window !== 'undefined') window.console.log(`[auth] getUser ->`, u);
             else console.log(`[auth] getUser ->`, u);
-        } catch (e) {}
+        } catch {}
         return u;
     }
     try {
         if (typeof window !== 'undefined') window.console.log(`[auth] getUser -> null`);
         else console.log(`[auth] getUser -> null`);
-    } catch (e) {}
+    } catch {}
     return null;
 }

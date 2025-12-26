@@ -1,3 +1,5 @@
+import { ZoneType } from "./zone";
+
 export const STATUSES = [
   { id: "arrived", label: "прибыл" },
   { id: "processing", label: "в обработке" },
@@ -22,6 +24,13 @@ export interface Container {
   sentTime?: string;
   direction?: string;
   cargoType?: string;
+  // zone?: [
+  //   id: string,
+  //   type: ZoneType,
+  //   occupancy: number,
+  //   containers: string[],
+  //   percentage?: number
+  // ];
   zone?: string;
   shift?: string;
   loadCapacity?: number;
@@ -42,7 +51,7 @@ export const initialContainers: Container[] = [
     sentTime: "09:30",
     direction: "Восток",
     cargoType: "Электроника",
-    zone: "A1",
+    zone: "45",
     shift: "День",
     loadCapacity: 80,
     urgency: "средняя",
@@ -61,7 +70,7 @@ export const initialContainers: Container[] = [
     sentTime: "10:15",
     direction: "Север",
     cargoType: "Продукты",
-    zone: "B3",
+    zone: "63",
     shift: "Ночь",
     loadCapacity: 60,
     urgency: "низкая",
@@ -80,7 +89,7 @@ export const initialContainers: Container[] = [
     sentTime: "14:45",
     direction: "Юг",
     cargoType: "Одежда",
-    zone: "C2",
+    zone: "199",
     shift: "День",
     loadCapacity: 75,
     urgency: "высокая",
@@ -99,7 +108,7 @@ export const initialContainers: Container[] = [
     sentTime: "08:00",
     direction: "Запад",
     cargoType: "Металл",
-    zone: "D1",
+    zone: "87",
     shift: "Ночь",
     loadCapacity: 50,
     urgency: "средняя",
@@ -118,7 +127,7 @@ export const initialContainers: Container[] = [
     sentTime: "13:20",
     direction: "Восток",
     cargoType: "Машины",
-    zone: "E3",
+    zone: "33",
     shift: "День",
     loadCapacity: 90,
     urgency: "высокая",
@@ -137,7 +146,7 @@ export const initialContainers: Container[] = [
     sentTime: "16:00",
     direction: "Север",
     cargoType: "Химия",
-    zone: "F2",
+    zone: "45",
     shift: "Ночь",
     loadCapacity: 70,
     urgency: "средняя",
@@ -156,7 +165,7 @@ export const initialContainers: Container[] = [
     sentTime: "11:10",
     direction: "Юг",
     cargoType: "Продукты",
-    zone: "G1",
+    zone: "22",
     shift: "День",
     loadCapacity: 85,
     urgency: "низкая",
@@ -175,7 +184,7 @@ export const initialContainers: Container[] = [
     sentTime: "09:50",
     direction: "Запад",
     cargoType: "Электроника",
-    zone: "H2",
+    zone: "10",
     shift: "Ночь",
     loadCapacity: 60,
     urgency: "высокая",
@@ -194,7 +203,7 @@ export const initialContainers: Container[] = [
     sentTime: "18:30",
     direction: "Восток",
     cargoType: "Одежда",
-    zone: "I3",
+    zone: "82",
     shift: "День",
     loadCapacity: 55,
     urgency: "средняя",
@@ -213,7 +222,7 @@ export const initialContainers: Container[] = [
     sentTime: "07:40",
     direction: "Север",
     cargoType: "Металл",
-    zone: "J1",
+    zone: "29",
     shift: "Ночь",
     loadCapacity: 95,
     urgency: "высокая",
@@ -232,7 +241,7 @@ export const initialContainers: Container[] = [
     sentTime: "12:00",
     direction: "Север",
     cargoType: "Металл",
-    zone: "J1",
+    zone: "91",
     shift: "Ночь",
     loadCapacity: 95,
     urgency: "высокая",
@@ -251,7 +260,7 @@ export const initialContainers: Container[] = [
     sentTime: "15:25",
     direction: "Север",
     cargoType: "Металл",
-    zone: "J1",
+    zone: "39",
     shift: "Ночь",
     loadCapacity: 95,
     urgency: "высокая",
@@ -270,7 +279,7 @@ export const initialContainers: Container[] = [
     sentTime: "06:55",
     direction: "Север",
     cargoType: "Металл",
-    zone: "J1",
+    zone: "88",
     shift: "Ночь",
     loadCapacity: 95,
     urgency: "высокая",

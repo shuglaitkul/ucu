@@ -3,9 +3,6 @@ import { useStore } from "@/stores/useStore";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { Header } from "@/components/header";
-import AppSidebar from "@/components/app-sidebar";
-import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
-import { SiteHeader } from "@/components/site-header";
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const { isAuthenticated, isHydrated, user } = useStore();
@@ -44,22 +41,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
           </main>
         </div>
       ) : (
-        <div className="flex">
-          <SidebarProvider
-            style={
-              {
-                "--sidebar-width": "calc(var(--spacing) * 72)",
-                "--header-height": "calc(var(--spacing) * 12)",
-              } as React.CSSProperties
-            }
-          >
-            <AppSidebar variant="inset" />
-            <SidebarInset>
-              <SiteHeader />
-              {children}
-            </SidebarInset>
-          </SidebarProvider>
-        </div>
+        <div>{children}</div>
       )}
     </div>
   );
